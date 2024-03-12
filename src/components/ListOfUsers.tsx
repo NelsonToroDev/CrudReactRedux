@@ -36,7 +36,7 @@ export function ListOfUsers () {
 
         <TableBody>
           {users.map((item) => (
-            <TableRow key={item.name}>
+            <TableRow key={item.id}>
               <TableCell>{item.id}</TableCell>
               <TableCell style={{ display: 'flex', alignItems: 'center' }}>
                 <img
