@@ -54,10 +54,16 @@ export const usersSlice = createSlice({
 			const id = action.payload;
 			return state.filter((user) => user.id !== id);
 		},
+		rollbackUser: (state, action: PayloadAction<UserWithId>) => {
+			const userAlreadyExists = state.some(user => user.id === action.payload.id);
+			if (!userAlreadyExists){
+				return [...state, action.payload];
+			}
+		}
 	},
 });
 
 export default usersSlice.reducer;
 
 // Instead of Export the name of the action we export the action itself
-export const { addNewUser, deleteUserById } = usersSlice.actions;
+export const { addNewUser, deleteUserById, rollbackUser } = usersSlice.actions;
