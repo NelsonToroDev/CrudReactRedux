@@ -2,8 +2,8 @@ import { Badge, Button, Card, TextInput, Title } from '@tremor/react';
 import { useUserActions } from '../hooks/useUserActions';
 import { useState } from 'react';
 
-export function CreateNewUser() {
-  const { addUser } = useUserActions();
+export function EditUser({ id, name, email, github }) {
+  const { editUser } = useUserActions();
   const [result, setResult] = useState<'ok' | 'ko' | null>(null);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -22,24 +22,24 @@ export function CreateNewUser() {
       return setResult('ko');
     }
 
-    addUser({ name, email, github });
+    editUser({ id, name, email, github });
     setResult('ok');
     form.reset();
   }
 
   return (
     <Card style={{ marginTop: '16px'}}>
-      <Title>Create New User</Title>
+      <Title>Edit User</Title>
       <form className='' onSubmit={handleSubmit}>
-        <TextInput name='name' placeholder='Type here your name' />
-        <TextInput name='email' placeholder='Type here your email' />
-        <TextInput name='github' placeholder='Type here your GitHub user' />
+        <TextInput name='name' placeholder='Type here your name' value={name} />
+        <TextInput name='email' placeholder='Type here your email' value={email} />
+        <TextInput name='github' placeholder='Type here your GitHub user' value={github} />
         <div>
           <Button 
             type='submit'
             style={{ marginTop: '16px'}}
              >
-              Create User
+              Update User
              </Button>
              <span>
               { result === 'ko' && <Badge color='red'>Error! all fields are mandatory</Badge> }

@@ -71,8 +71,8 @@ export const store = configureStore({
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware()
 			.prepend(persistanceLocalStorageMiddleware)
-			.prepend(syncWithMiddleware),
-	//.prepend(loggerMiddleware),
+			.prepend(syncWithMiddleware)
+	 		.prepend(loggerMiddleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

@@ -52,6 +52,10 @@ export const usersSlice = createSlice({
 			// Redux uses Immer to handle inmutable state in this case
 			state.push({ id, ...action.payload });
 		},
+		updateUser: (state, action: PayloadAction<UserWithId>) => {
+			const existingUserIndex = state.findIndex(user => user.id === action.payload.id);
+			state[existingUserIndex] = action.payload;
+		},
 		deleteUserById: (state, action: PayloadAction<UserId>) => {
 			const id = action.payload;
 			return state.filter((user) => user.id !== id);
@@ -68,4 +72,4 @@ export const usersSlice = createSlice({
 export default usersSlice.reducer;
 
 // Instead of Export the name of the action we export the action itself
-export const { addNewUser, deleteUserById, rollbackUser } = usersSlice.actions;
+export const { addNewUser, updateUser, deleteUserById, rollbackUser } = usersSlice.actions;
