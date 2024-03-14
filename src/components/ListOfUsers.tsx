@@ -86,7 +86,7 @@ export function ListOfUsers () {
 
   //call READ hook
   const {
-    data: fetchedUsers = [],
+    users: fetchedUsers = [],
     isError: isLoadingUsersError,
     isFetching: isFetchingUsers,
     isLoading: isLoadingUsers,
@@ -233,9 +233,18 @@ function useCreateUser () {
 }
 
 //READ hook (get users from api)
+/*
+const {
+    data: fetchedUsers = [],
+    isError: isLoadingUsersError,
+    isFetching: isFetchingUsers,
+    isLoading: isLoadingUsers,
+  }
+*/
+
 function useGetUsers () {
   const users = useAppSelector((state) => state.users);
-  return useQuery<UserWithId[]>({
+  const { isError, isFetching, isLoading} = useQuery<UserWithId[]>({
     queryKey: ['users'],
     queryFn: async () => {
       //send api request here
@@ -244,6 +253,7 @@ function useGetUsers () {
     },
     refetchOnWindowFocus: false,
   });
+  return { users, isError, isFetching, isLoading };
 }
 
 //UPDATE hook (put user in api)
