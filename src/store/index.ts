@@ -1,4 +1,5 @@
-import { Middleware, configureStore } from "@reduxjs/toolkit";
+// store.ts
+import { Middleware, configureStore, type Action } from "@reduxjs/toolkit";
 import { toast } from "sonner";
 import usersReducer, { rollbackUser } from "./users/slice";
 
@@ -23,7 +24,7 @@ const syncWithMiddleware: Middleware = (store) => (next) => (action) => {
 	next(action);
 	if (type === "users/deleteUserById") {
 		const userToDelete = previousState.users.find(
-			(user) => user.id === payload,
+			(user) => user.id === payload
 		);
 		const { name: userToDeleteName } = userToDelete;
 
